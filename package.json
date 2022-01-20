@@ -1,0 +1,14 @@
+{
+  "name": "windicss-alpinejs",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "windicss -to public/css/base.css --config tailwind.config.js --preflight --dev --style"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "tailwindcss": "^3.0.15",
+    "windicss": "^3.4.3"
+  }
+}
