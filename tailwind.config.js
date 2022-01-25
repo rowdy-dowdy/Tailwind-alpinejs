@@ -1,12 +1,10 @@
 const colors = require('tailwindcss/colors');
 
-const config = {
-  extract: {
-    include: [
-      './src/**/*.{html,js,svelte,ts}',
-    ],
-  },
-	theme: {
+module.exports = {
+  content: [
+    "./src/**/*.html",
+  ],
+  theme: {
 		extend: {
       screens: {
 				'xs' : '500px',
@@ -114,21 +112,7 @@ const config = {
       primary: colors.amber
     }
 	},
-  shortcuts: {
-    'btn': {
-      'color': 'white',
-      '@apply': 'py-2 px-4 font-semibold rounded-lg',
-      '&:hover': {
-        '@apply': 'bg-green-700',
-        'color': 'black',
-      },
-    },
-    'btn-green': 'text-white bg-green-500 hover:bg-green-700',
-  },
-	plugins: [
-    require('windicss/plugin/line-clamp'),
-    require('windicss/plugin/aspect-ratio'),
-  ]
-};
-
-module.exports = config;
+  plugins: [
+    require('@tailwindcss/line-clamp')
+  ],
+}
