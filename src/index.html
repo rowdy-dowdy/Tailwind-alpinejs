@@ -19,10 +19,10 @@
 <body>
   <div class="2xl:container mx-auto px-4 py-14">
     <!-- list images -->
-    <div class="flex flex-wrap -mx-4" x-data="list">
+    <!-- <div class="flex flex-wrap -mx-4" x-data="list">
 
       <template x-for="item in items">
-        <div class="w-1/3 px-4">
+        <div class="w-1/5 px-4">
           <div class="rounded px-4 py-3 border hover:shadow-md">
             <div class="relative pb-[75%]">
               <a href="#" class="bg-absolute js-lazyload overflow-hidden">
@@ -46,9 +46,9 @@
         </div>
       </template>
 
-    </div>
+    </div> -->
 
-    <script>
+    <!-- <script>
       document.addEventListener('alpine:init', () => {
         Alpine.data('list', () => ({
           items: [
@@ -75,26 +75,101 @@
           ]
         }))
       })
+    </script> -->
+
+    <div x-data>
+      <button 
+        class="px-4 py-2 border bg-white rounded hover:bg-primary-600 hover:text-white"
+        @click="$store.alert.add($el)"
+        data-type="success"
+      >Success</button>
+      <button 
+        class="px-4 py-2 border bg-white rounded hover:bg-primary-600 hover:text-white"
+        @click="$store.alert.add($el)"
+        data-type="warning"
+      >Warning</button>
+      <button 
+        class="px-4 py-2 border bg-white rounded hover:bg-primary-600 hover:text-white"
+        @click="$store.alert.add($el)"
+        data-type="danger"
+      >Danger</button>
+    </div>
+
+    <script>
+      document.addEventListener('alpine:init', () => {
+        Alpine.store('alert', {
+          index: 1,
+          list: [
+            {
+              id: 1,
+              title: '',
+              description: '',
+              show: false,
+              type: 'success' // success warning danger
+            }
+          ],
+          add(el) {
+            this.list = [{
+              id : ++this.index,
+              show: false,
+              title: el.dataset.title ?? '',
+              description: el.dataset.description ?? '',
+              type: el.dataset.type ?? ''
+            },...this.list];
+
+            setTimeout(() => {
+              this.del(this.index);
+            },2000);
+          },
+          del(id) {
+            let item = this.list.find(v => v.id == id) ?? null
+            console.log(item)
+            if (item && item.show) {
+              item.show = false
+
+              setTimeout(() => {
+                this.list.splice(this.list.findIndex(v => v.id == id), 1);
+              },1000)
+            }
+          }
+        })
+    })
     </script>
 
-    <span x-data class="text-red-500" x-text="$store.model.text">ok la</span>
+  </div>
 
+  <div class="fixed w-full h-full top-0 left-0 z-50">
+    <div x-data class="relative flex flex-col items-end p-6 overflow-hidden">
+      <template x-for="item in $store.alert.list" :key="item.id">
+        <div
+          class="max-w-xs flex px-4 py-2 space-x-4"
+          :class="item.type == 'success' ? 'bg-green-200 text-green-900' : item.type == 'warning' ? 'bg-yellow-200' : 'bg-red-200'"
+          x-text="item.show"
+          x-show="item.show"
+          x-init="$nextTick(() => { item.show = true }); "
+          x-transition.scale.40
+        >
+          <span class="flex-none">
+            <svg x-if="item.type == 'success'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path></svg>
+          </span>
+
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M11.001 10h2v5h-2zM11 16h2v2h-2z"></path><path d="M13.768 4.2C13.42 3.545 12.742 3.138 12 3.138s-1.42.407-1.768 1.063L2.894 18.064a1.986 1.986 0 0 0 .054 1.968A1.984 1.984 0 0 0 4.661 21h14.678c.708 0 1.349-.362 1.714-.968a1.989 1.989 0 0 0 .054-1.968L13.768 4.2zM4.661 19 12 5.137 19.344 19H4.661z"></path></svg>
+          </span>
+
+          <span class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M9 9h6v2H9zm0 4h6v2H9z"></path><path d="m18 5.414 1.707-1.707-1.414-1.414-1.563 1.562C15.483 2.708 13.824 2 12 2s-3.483.708-4.73 1.855L5.707 2.293 4.293 3.707 6 5.414A6.937 6.937 0 0 0 5 9H3v2h2v2H3v2h2c0 3.86 3.141 7 7 7s7-3.14 7-7h2v-2h-2v-2h2V9h-2a6.937 6.937 0 0 0-1-3.586zM17 13v2c0 2.757-2.243 5-5 5s-5-2.243-5-5V9c0-2.757 2.243-5 5-5s5 2.243 5 5v4z"></path></svg>
+          </span>
+        </div>
+      </template>
+    </div>
   </div>
 
 
   <!-- alpinejs main -->
   <script>
     document.addEventListener('alpine:init', () => {
-      Alpine.store('model', {
-            on: true,
-            text: 'hihi haha',
- 
-            toggle() {
-                this.on = ! this.on
-            }
-        })
-
-
+    
       if ("loading" in HTMLImageElement.prototype) {
         // type one
         Alpine.bind('lazyload', () => ({
