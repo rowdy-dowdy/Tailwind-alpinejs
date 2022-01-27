@@ -77,93 +77,198 @@
       })
     </script> -->
 
-    <div x-data>
+    <!-- <div>
       <button 
-        class="px-4 py-2 border bg-white rounded hover:bg-primary-600 hover:text-white"
-        @click="$store.alert.add($el)"
-        data-type="success"
-      >Success</button>
-      <button 
-        class="px-4 py-2 border bg-white rounded hover:bg-primary-600 hover:text-white"
-        @click="$store.alert.add($el)"
-        data-type="warning"
-      >Warning</button>
-      <button 
-        class="px-4 py-2 border bg-white rounded hover:bg-primary-600 hover:text-white"
-        @click="$store.alert.add($el)"
-        data-type="danger"
-      >Danger</button>
-    </div>
-
-    <script>
-      document.addEventListener('alpine:init', () => {
-        Alpine.store('alert', {
-          index: 1,
-          list: [
-            {
-              id: 1,
-              title: '',
-              description: '',
-              show: false,
-              type: 'success' // success warning danger
-            }
-          ],
-          add(el) {
-            this.list = [{
-              id : ++this.index,
-              show: false,
-              title: el.dataset.title ?? '',
-              description: el.dataset.description ?? '',
-              type: el.dataset.type ?? ''
-            },...this.list];
+        class="px-4 py-2 border bg-white rounded hover:bg-primary-600 hover:text-white relative"
+        @click="add()"
+        x-data="{
+          adding: false,
+          add() {
+            if (this.adding) return;
+            this.adding = true;
 
             setTimeout(() => {
-              this.del(this.index);
-            },2000);
-          },
-          del(id) {
-            let item = this.list.find(v => v.id == id) ?? null
-            console.log(item)
-            if (item && item.show) {
-              item.show = false
-
-              setTimeout(() => {
-                this.list.splice(this.list.findIndex(v => v.id == id), 1);
-              },1000)
-            }
+              $store.alert.add($el)
+              this.adding = false;
+            },1000)
           }
-        })
-    })
-    </script>
+        }"
+        data-type="success"
+        data-title="Lorem ipsum dolor sit amet"
+      >
+        Success
+        <template x-if="adding">
+          <span class="bg-absolute bg-white cursor-auto">
+            <span class="flex absolute-center text-zinc-800">
+              <svg class="inline animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"></path></svg>
+            </span>
+          </span>
+        </template>
+      </button>
+      <button 
+        class="px-4 py-2 border bg-white rounded hover:bg-primary-600 hover:text-white relative"
+        @click="add($el)"
+        x-data="{
+          adding: false,
+          add() {
+            if (this.adding) return;
+            this.adding = true;
 
+            setTimeout(() => {
+              $store.alert.add($el)
+              this.adding = false;
+            },1000)
+          }
+        }"
+        data-type="warning"
+        data-title="Lorem ipsum dolor sit amet"
+      >
+        Warning
+        <template x-if="adding">
+          <span class="bg-absolute bg-white cursor-auto">
+            <span class="flex absolute-center text-zinc-800">
+              <svg class="inline animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"></path></svg>
+            </span>
+          </span>
+        </template>
+      </button>
+      <button 
+        class="px-4 py-2 border bg-white rounded hover:bg-primary-600 hover:text-white relative"
+        @click="add()"
+        x-data="{
+          adding: false,
+          add() {
+            if (this.adding) return;
+            this.adding = true;
+
+            setTimeout(() => {
+              $store.alert.add($el)
+              this.adding = false;
+            },1000)
+          }
+        }"
+        data-type="danger"
+        data-title="Lorem ipsum dolor sit amet"
+      >
+        Danger
+        <template x-if="adding">
+          <span class="bg-absolute bg-white cursor-auto">
+            <span class="flex absolute-center text-zinc-800">
+              <svg class="inline animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"></path></svg>
+            </span>
+          </span>
+        </template>
+      </button>
+    </div> -->
+
+    <div>
+      <button 
+        class="px-4 py-2 border bg-white text-green-600 border-green-600 rounded hover:bg-green-600 hover:text-white"
+        @click="$store.alert.add($el)"
+        x-data
+        data-type="success"
+        data-title="Lorem ipsum dolor sit amet"
+      >
+        Success
+      </button>
+      <button 
+        class="px-4 py-2 border bg-white text-yellow-600 border-yellow-600 rounded hover:bg-yellow-600 hover:text-white"
+        @click="$store.alert.add($el)"
+        x-data
+        data-type="warning"
+        data-title="Lorem ipsum dolor sit amet"
+      >
+        Warning
+      </button>
+      <button 
+        class="px-4 py-2 border bg-white text-red-600 border-red-600 rounded hover:bg-red-600 hover:text-white"
+        @click="$store.alert.add($el)"
+        x-data
+        data-type="danger"
+        data-title="Lorem ipsum dolor sit amet"
+      >
+        Danger
+      </button>
+    </div>
   </div>
 
-  <div class="fixed w-full h-full top-0 left-0 z-50">
+  <div class="fixed w-full h-full top-0 left-0 z-50 pointer-events-none">
     <div x-data class="relative flex flex-col items-end p-6 overflow-hidden">
       <template x-for="item in $store.alert.list" :key="item.id">
         <div
-          class="max-w-xs flex px-4 py-2 space-x-4"
-          :class="item.type == 'success' ? 'bg-green-200 text-green-900' : item.type == 'warning' ? 'bg-yellow-200' : 'bg-red-200'"
-          x-text="item.show"
+          class="relative w-full max-w-xs flex items-center px-4 py-2 pb-3 rounded mb-4 transition-all-0.5"
+          :class="item.type == 'success' ? 'bg-green-200 text-green-900' : item.type == 'warning' ? 'bg-yellow-200 text-yellow-900' : 'bg-red-200 text-red-900'"
           x-show="item.show"
           x-init="$nextTick(() => { item.show = true }); "
-          x-transition.scale.40
+          x-transition:enter-start="opacity-0 scale-50"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave-start="opacity-100 translate-x-0"
+          x-transition:leave-end="opacity-0 translate-x-full"
         >
-          <span class="flex-none">
-            <svg x-if="item.type == 'success'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path></svg>
+          <span 
+            class="alert absolute left-0 bottom-0 w-0 h-1 transition-all-2 bg-current"
+          ></span>
+
+          <span class="flex-none mr-4">
+            <template x-if="item.type == 'success'">
+              <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path></svg>
+            </template>
+
+            <template x-if="item.type == 'warning'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M11.001 10h2v5h-2zM11 16h2v2h-2z"></path><path d="M13.768 4.2C13.42 3.545 12.742 3.138 12 3.138s-1.42.407-1.768 1.063L2.894 18.064a1.986 1.986 0 0 0 .054 1.968A1.984 1.984 0 0 0 4.661 21h14.678c.708 0 1.349-.362 1.714-.968a1.989 1.989 0 0 0 .054-1.968L13.768 4.2zM4.661 19 12 5.137 19.344 19H4.661z"></path></svg>
+            </template>
+
+            <template x-if="item.type == 'danger'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M9 9h6v2H9zm0 4h6v2H9z"></path><path d="m18 5.414 1.707-1.707-1.414-1.414-1.563 1.562C15.483 2.708 13.824 2 12 2s-3.483.708-4.73 1.855L5.707 2.293 4.293 3.707 6 5.414A6.937 6.937 0 0 0 5 9H3v2h2v2H3v2h2c0 3.86 3.141 7 7 7s7-3.14 7-7h2v-2h-2v-2h2V9h-2a6.937 6.937 0 0 0-1-3.586zM17 13v2c0 2.757-2.243 5-5 5s-5-2.243-5-5V9c0-2.757 2.243-5 5-5s5 2.243 5 5v4z"></path></svg>
+            </template>
+
+            <template x-if="item.type == 'undefined'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M12 4C9.243 4 7 6.243 7 9h2c0-1.654 1.346-3 3-3s3 1.346 3 3c0 1.069-.454 1.465-1.481 2.255-.382.294-.813.626-1.226 1.038C10.981 13.604 10.995 14.897 11 15v2h2v-2.009c0-.024.023-.601.707-1.284.32-.32.682-.598 1.031-.867C15.798 12.024 17 11.1 17 9c0-2.757-2.243-5-5-5zm-1 14h2v2h-2z"></path></svg>
+            </template>
           </span>
 
-          <span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M11.001 10h2v5h-2zM11 16h2v2h-2z"></path><path d="M13.768 4.2C13.42 3.545 12.742 3.138 12 3.138s-1.42.407-1.768 1.063L2.894 18.064a1.986 1.986 0 0 0 .054 1.968A1.984 1.984 0 0 0 4.661 21h14.678c.708 0 1.349-.362 1.714-.968a1.989 1.989 0 0 0 .054-1.968L13.768 4.2zM4.661 19 12 5.137 19.344 19H4.661z"></path></svg>
-          </span>
+          <div class="flex-grow flex flex-col overflow-hidden">
+            <h3 class="font-semibold truncate capitalize" x-text="item.type"></h3>
+            <p class="text-sm truncate" x-text="item.title"></p>
+          </div>
 
-          <span class="">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor"><path d="M9 9h6v2H9zm0 4h6v2H9z"></path><path d="m18 5.414 1.707-1.707-1.414-1.414-1.563 1.562C15.483 2.708 13.824 2 12 2s-3.483.708-4.73 1.855L5.707 2.293 4.293 3.707 6 5.414A6.937 6.937 0 0 0 5 9H3v2h2v2H3v2h2c0 3.86 3.141 7 7 7s7-3.14 7-7h2v-2h-2v-2h2V9h-2a6.937 6.937 0 0 0-1-3.586zM17 13v2c0 2.757-2.243 5-5 5s-5-2.243-5-5V9c0-2.757 2.243-5 5-5s5 2.243 5 5v4z"></path></svg>
-          </span>
         </div>
       </template>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('alert', {
+        index: 0,
+        list: [],
+        add(el) {
+          this.list = [{
+            id : ++this.index,
+            show: false,
+            title: el.dataset.title ?? 'Unknown',
+            type: el.dataset.type ?? 'undefined'
+          },...this.list];
+
+          let index = this.index
+          setTimeout(() => {
+            this.del(index);
+            adding = false
+          },3000);
+        },
+        del(id) {
+          let item = this.list.find(v => v.id == id) ?? null
+          if (item && item.show) {
+            item.show = false
+
+            setTimeout(() => {
+              this.list.splice(this.list.findIndex(v => v.id == id), 1);
+            },500)
+          }
+        }
+      })
+  })
+  </script>
 
 
   <!-- alpinejs main -->

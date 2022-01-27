@@ -9,8 +9,24 @@
 }
 
 @layer components {
+  .transition-all-0\.3 {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  .transition-all-0\.5 {
+    @apply transition-all duration-500 ease-in-out;
+  }
+  .transition-all-0\.7 {
+    @apply transition-all duration-700 ease-in-out;
+  }
+  .transition-all-2 {
+    @apply transition-all duration-[2s] ease-in-out;
+  }
   .bg-absolute {
     @apply absolute w-full h-full top-0 left-0;
+  }
+
+  .absolute-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }
   
   .img-cover {
@@ -59,6 +75,19 @@
   
     100% {
       background-position: 1200px 0
+    }
+  }
+
+  .alert {
+    animation: alertTimeLine 3s linear;
+  }
+
+  @keyframes alertTimeLine {
+    0% {
+      width: 0px;
+    }
+    100% {
+      width: 100%;
     }
   }
 }
